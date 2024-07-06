@@ -18,10 +18,14 @@ class QuizItemViewModel : ViewModel() {
     private var allQuizNames: ArrayList<String> = ArrayList()
     private var currentAnswers: Array<String> = Array(8){""}
     private var hasAnswer: MutableLiveData<Boolean> = MutableLiveData()
-    private var timeLeft: Int = 10000
 
+    fun getKeyAnswers():Array<String>{
+        resetAllQuizNames()
+        return allQuizNames.toTypedArray()
+    }
     fun setAnswer(s:String){
-        currentAnswers[current]= s
+        if(current<8)
+            currentAnswers[current]= s
     }
 
     fun getHasAnswer(): LiveData<Boolean>{
@@ -37,7 +41,8 @@ class QuizItemViewModel : ViewModel() {
         return quizOptions
     }
     fun increaseCount() {
-        hasAnswer.value = currentAnswers[current]!=""
+        if(current<8)
+            hasAnswer.value = currentAnswers[current]!=""
 
         if(hasAnswer.value == true){
             current++
@@ -94,5 +99,10 @@ class QuizItemViewModel : ViewModel() {
             allQuizNames.add(quizItem.name)
         }
     }
+
+    fun getCurrentAnswers(): Array<String>{
+        return currentAnswers
+    }
+
 
 }

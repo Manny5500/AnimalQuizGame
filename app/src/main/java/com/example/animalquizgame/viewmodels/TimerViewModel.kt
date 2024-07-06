@@ -6,8 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class TimerViewModel: ViewModel() {
-    private var _timeRemaining:Long = 0
-
+    private val _timeRemaining = MutableLiveData<Long>()
     private val _isFinished = MutableLiveData<Boolean>()
 
     private lateinit var countDownTimer: CountDownTimer
@@ -25,10 +24,10 @@ class TimerViewModel: ViewModel() {
         countDownTimer = object : CountDownTimer(duration, interval) {
 
             override fun onTick(millisUntilFinished: Long) {
-                _timeRemaining = millisUntilFinished
-                timeFormat.value = formatMillisToTime(_timeRemaining)
+                _timeRemaining.value = millisUntilFinished
+                timeFormat.value = formatMillisToTime(_timeRemaining.value!!)
 
-                if(_timeRemaining<6000){
+                if(_timeRemaining.value!!<6000){
                     _isRush.value = true;
                 }
             }
@@ -59,5 +58,14 @@ class TimerViewModel: ViewModel() {
 
     fun stopTimer() {
         countDownTimer.cancel()
+    }
+
+    fun getRemainingTime(): Int {
+        val rTimeInSec: Long = _timeRemaining.value?.div(1000) ?: 0
+        return rTimeInSec.toInt()
+    }
+
+    fun getTotalTime():Int{
+        return 10000/1000
     }
 }

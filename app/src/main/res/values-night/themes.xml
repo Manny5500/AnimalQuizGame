@@ -1,7 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.AnimalQuizGame" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <style name="Base.Theme.AnimalQuizGame" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/themeblue</item>
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="snackbarStyle">@style/MySnackBarStyle</item>
+    </style>
+    <style name="MySnackBarStyle" parent="Widget.MaterialComponents.Snackbar">
+        <item name="android:background">@drawable/snackbar_background</item>
+    </style>
+    <style name="CustomButtonStyle" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:background">@drawable/button_border</item>
     </style>
 </resources>

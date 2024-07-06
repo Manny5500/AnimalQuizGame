@@ -1,5 +1,6 @@
 package com.example.animalquizgame
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,12 +16,13 @@ import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var mQVM: QuizItemViewModel
-    lateinit var binding:ActivityMainBinding
-    lateinit var buttonList:Array<MaterialButton>
-    lateinit var tVM:TimerViewModel
-    var themeblack:Int  = 0
-    var  themeblue:Int = 0
+    private lateinit var mQVM: QuizItemViewModel
+    private lateinit var binding:ActivityMainBinding
+    private lateinit var buttonList:Array<MaterialButton>
+    private lateinit var tVM:TimerViewModel
+    private var themeblack:Int  = 0
+    private var  themeblue:Int = 0
+    private var themered:Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,15 +32,17 @@ class MainActivity : AppCompatActivity() {
         tVM = ViewModelProvider(this)[TimerViewModel::class.java]
         binding.viewModel = mQVM
         binding.lifecycleOwner = this
+
         themeblue = ContextCompat.getColor(this, R.color.themeblue)
         themeblack = ContextCompat.getColor(this, R.color.themeblack)
+        themered = ContextCompat.getColor(this, R.color.themered)
+
         mQVM.init()
         tVM.init()
         buttonList = arrayOf(binding.button1, binding.button2, binding.button3, binding.button4)
         observers()
         buttonClick()
     }
-
     private fun observers(){
         mQVM.getHasAnswer().observe(this){bool ->
             if(!bool){
@@ -47,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     .show()
             }else{
-                resetButtonColor()
+                changeButtonColor(null)
             }
         }
         mQVM.getMyImage().observe(this) {str ->
@@ -62,20 +66,28 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        mQVM.getIsFinished().observe(this){bool ->
-            if(bool) finish()
-        }
-
         tVM.getTimeFormatted().observe(this){str->
             binding.textViewTimer.text = str
         }
 
         tVM.getIsRush().observe(this){bool->
-            if(bool) binding.textViewTimer.setTextColor(Color.RED)
+            if(bool){
+                binding.textViewTimer.setTextColor(themered)
+                binding.textViewTimer.setBackgroundResource(R.drawable.timer_style_final)
+            }
+        }
+
+        tVM.getIsTimeFinished().observe(this){bool->
+            if(bool) goToScorePage()
+        }
+        mQVM.getIsFinished().observe(this){bool ->
+            if(bool) {
+                tVM.stopTimer()
+                goToScorePage()
+            }
         }
 
     }
-
     private fun buttonClick(){
         var currentButton:MaterialButton
         for(button in buttonList){
@@ -87,7 +99,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeButtonColor(currentButton:MaterialButton){
+    private fun changeButtonColor(currentButton: MaterialButton?){
         for(button in buttonList){
             if(button == currentButton){
                 button.setBackgroundColor(themeblue)
@@ -96,13 +108,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-    private fun resetButtonColor(){
-        for(button in buttonList){
-            button.setBackgroundColor(themeblack)
-        }
+    private fun goToScorePage(){
+        val intent = Intent(this, ScoreActivity::class.java)
+        intent.putExtra("playerAnswers", mQVM.getCurrentAnswers())
+        intent.putExtra("remainingTime", tVM.getRemainingTime())
+        intent.putExtra("keyAnswers", mQVM.getKeyAnswers())
+        intent.putExtra("totalTime", tVM.getTotalTime())
+        startActivity(intent)
+        finish()
     }
-
 }
 
 
