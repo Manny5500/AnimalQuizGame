@@ -16,16 +16,17 @@ class QuizItemViewModel : ViewModel() {
     private var quizOptions: MutableLiveData<Array<String>> = MutableLiveData(Array(4) { "" })
     private var current: Int = 0
     private var allQuizNames: ArrayList<String> = ArrayList()
-    private var currentAnswers: Array<String> = Array(8){""}
+    private var currentAnswers: Array<String>?= null
     private var hasAnswer: MutableLiveData<Boolean> = MutableLiveData()
+    private var size = 0
 
     fun getKeyAnswers():Array<String>{
         resetAllQuizNames()
         return allQuizNames.toTypedArray()
     }
     fun setAnswer(s:String){
-        if(current<8)
-            currentAnswers[current]= s
+        if(current<size)
+            currentAnswers?.set(current, s)
     }
 
     fun getHasAnswer(): LiveData<Boolean>{
@@ -41,8 +42,8 @@ class QuizItemViewModel : ViewModel() {
         return quizOptions
     }
     fun increaseCount() {
-        if(current<8)
-            hasAnswer.value = currentAnswers[current]!=""
+        if(current<size)
+            hasAnswer.value = currentAnswers?.getOrNull(current)?.isNotEmpty() ?: false
 
         if(hasAnswer.value == true){
             current++
@@ -52,7 +53,7 @@ class QuizItemViewModel : ViewModel() {
 
                 removeElement()
                 updateQuizOptions()
-                currentAnswers[current] = ""
+                currentAnswers?.set(current, "")
             } else {
                 mIsFinished.value = true
             }
@@ -64,6 +65,9 @@ class QuizItemViewModel : ViewModel() {
         }
         mRepo = QuizItemRepositories.getInstance()
         mQuizItems.value = mRepo.getQuizItems().value
+
+        size = mQuizItems.value?.size ?: 0
+        currentAnswers = Array(size){""}
 
         currentQuizName = mQuizItems.value?.get(current)?.name.toString()
         myImage.value = mQuizItems.value?.get(current)?.resourcePic
@@ -100,7 +104,7 @@ class QuizItemViewModel : ViewModel() {
         }
     }
 
-    fun getCurrentAnswers(): Array<String>{
+    fun getCurrentAnswers(): Array<String>? {
         return currentAnswers
     }
 

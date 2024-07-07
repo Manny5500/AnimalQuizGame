@@ -1,10 +1,8 @@
 package com.example.animalquizgame
 
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -26,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(getLayoutInflater())
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         mQVM = ViewModelProvider(this)[QuizItemViewModel::class.java]
         tVM = ViewModelProvider(this)[TimerViewModel::class.java]
@@ -113,7 +111,6 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra("playerAnswers", mQVM.getCurrentAnswers())
         intent.putExtra("remainingTime", tVM.getRemainingTime())
         intent.putExtra("keyAnswers", mQVM.getKeyAnswers())
-        intent.putExtra("totalTime", tVM.getTotalTime())
         startActivity(intent)
         finish()
     }

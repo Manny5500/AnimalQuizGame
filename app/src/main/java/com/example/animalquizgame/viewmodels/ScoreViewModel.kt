@@ -8,14 +8,18 @@ class ScoreViewModel: ViewModel(){
     var finalScore:Int = 0
     var correctAnswer:Int = 0
     lateinit var quizChecker: QuizChecker
+    var imageUrl:String = ""
+    var hexColor:String = ""
     fun init(remainingTime: Int, playerAnswers: Array<String>,
-             keyAnswers: Array<String>, totalTime: Int){
+             keyAnswers: Array<String>){
 
-        quizChecker = QuizChecker(keyAnswers, playerAnswers, remainingTime, totalTime)
+        quizChecker = QuizChecker(keyAnswers, playerAnswers, remainingTime)
 
         this.status = quizChecker.status
         this.finalScore = quizChecker.finalScore
         this.correctAnswer = quizChecker.correctAnswers
+        this.imageUrl = quizChecker.imageUrl
+        this.hexColor = quizChecker.hexColor
     }
 
 

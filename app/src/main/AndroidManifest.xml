@@ -13,12 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AnimalQuizGame"
+        android:name=".App"
         tools:targetApi="31">
         <activity
-            android:name=".ScoreActivity"
+            android:name=".HighScore"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".MainMenu"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,6 +27,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ScoreActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"></activity>
 
         <meta-data
             android:name="preloaded_fonts"

@@ -10,7 +10,7 @@ class ScoreCalculator (
     }
     fun setFinalScore(){
         val a = correctAnswers * 200
-        val b = remainingTime * 5
+        val b = if (a > 0) remainingTime * 5 else 0
         finalScore =  a+b
     }
 }
