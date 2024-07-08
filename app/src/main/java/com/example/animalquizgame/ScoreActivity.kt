@@ -5,9 +5,11 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.animalquizgame.databinding.ActivityScoreBinding
+import com.example.animalquizgame.viewmodels.HighScoreViewModel
 import com.example.animalquizgame.viewmodels.ScoreViewModel
 
 class ScoreActivity : AppCompatActivity() {
@@ -16,6 +18,7 @@ class ScoreActivity : AppCompatActivity() {
     private lateinit var keyAnswers:Array<String>
     private lateinit var playerAnswers:Array<String>
     private var remainingTime:Int = 0
+    private lateinit var hVM: HighScoreViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,10 +29,20 @@ class ScoreActivity : AppCompatActivity() {
         binding.viewModel = sVM
         binding.lifecycleOwner = this
 
+        binding.textViewBestScore.visibility = View.GONE
+
         setValueFromIntents()
         sVM.init(remainingTime, playerAnswers, keyAnswers)
         displayUI()
         buttonsEvent()
+
+        sVM.context = this
+        sVM.readTextFile().setScoreList().compareScore()
+        sVM.getIsHigher().observe(this){bool->
+            if(bool) binding.textViewBestScore.visibility = View.VISIBLE
+        }
+        sVM.writeTextFile()
+
     }
     private fun setValueFromIntents(){
         keyAnswers = intent.getStringArrayExtra("keyAnswers")!!
@@ -47,7 +60,6 @@ class ScoreActivity : AppCompatActivity() {
             .load(sVM.imageUrl)
             .into(binding.imgViewPicActual)
     }
-
     private fun buttonsEvent(){
         binding.buttonMenu.setOnClickListener{
             finish()

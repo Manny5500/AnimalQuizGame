@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         mQVM = ViewModelProvider(this)[QuizItemViewModel::class.java]
         tVM = ViewModelProvider(this)[TimerViewModel::class.java]
+
         binding.viewModel = mQVM
         binding.lifecycleOwner = this
 
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         mQVM.init()
         tVM.init()
+
         buttonList = arrayOf(binding.button1, binding.button2, binding.button3, binding.button4)
         observers()
         buttonClick()
@@ -45,8 +47,6 @@ class MainActivity : AppCompatActivity() {
         mQVM.getHasAnswer().observe(this){bool ->
             if(!bool){
                 Snackbar.make(binding.root, "Please Choose an answer", Snackbar.LENGTH_SHORT)
-                    .setAction("") {
-                    }
                     .show()
             }else{
                 changeButtonColor(null)
