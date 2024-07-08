@@ -15,10 +15,26 @@
         android:layout_height="match_parent"
         android:background="@color/themeblack"
         tools:context=".MainMenu">
+
+        <ImageView
+            android:id="@+id/imgViewSetting"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintBottom_toTopOf="@id/tVTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/setting"
+            app:tint="@color/themewhite"
+            android:scaleType="fitCenter"
+            />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgViewSetting"
             app:layout_constraintBottom_toTopOf="@id/btnNewGame"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
