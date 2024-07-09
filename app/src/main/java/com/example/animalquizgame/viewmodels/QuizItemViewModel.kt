@@ -19,6 +19,7 @@ class QuizItemViewModel : ViewModel() {
     private var hasAnswer: MutableLiveData<Boolean> = MutableLiveData()
     private var size = 0
 
+
     fun getKeyAnswers():Array<String>{
         resetAllQuizNames()
         return allQuizNames.toTypedArray()

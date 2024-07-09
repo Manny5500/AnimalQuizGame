@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:background="@color/themeblack"
         tools:context=".HighScore">
-        <TextView
+        <com.example.animalquizgame.utlis.uiUtils.textViews.TitleTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -30,7 +30,7 @@
             android:gravity="center"
             android:text="High Scores"
             android:id="@+id/tVHighScore">
-        </TextView>
+        </com.example.animalquizgame.utlis.uiUtils.textViews.TitleTextView>
         <TableLayout
             android:id="@+id/tableHS"
             android:layout_width="match_parent"

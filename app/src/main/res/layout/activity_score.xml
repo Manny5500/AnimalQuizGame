@@ -91,7 +91,7 @@
                 android:scaleType="centerCrop"
                 app:civ_border_color="@color/themeblue"
                 app:civ_border_width="4dp"
-                android:src="@color/themeblack"
+                android:src="@android:color/transparent"
                 app:layout_constraintVertical_weight="3"
                 />
 
@@ -125,7 +125,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintVertical_weight="1"/>
-            <TextView
+            <com.example.animalquizgame.utlis.uiUtils.textViews.HighlightedTextView
                 android:id="@+id/textViewBestScore"
                 android:layout_width="0dp"
                 android:layout_height="0dp"

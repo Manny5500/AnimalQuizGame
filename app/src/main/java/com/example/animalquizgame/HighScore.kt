@@ -1,13 +1,15 @@
 package com.example.animalquizgame
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.animalquizgame.databinding.ActivityHighScoreBinding
 import com.example.animalquizgame.utlis.uiUtils.TableSetter
+import com.example.animalquizgame.utlis.uiUtils.general.SetRootBackground
 import com.example.animalquizgame.viewmodels.HighScoreViewModel
 
-class HighScore : AppCompatActivity() {
+class HighScore : BaseActivity() {
 
     private lateinit var hVM:HighScoreViewModel
     private lateinit var binding:ActivityHighScoreBinding
@@ -19,6 +21,10 @@ class HighScore : AppCompatActivity() {
         hVM = ViewModelProvider(this)[HighScoreViewModel::class.java]
         binding.viewModel = hVM
         binding.lifecycleOwner = this
+
+        val sharedPreferences = getSharedPreferences("SETTINGS", Context.MODE_PRIVATE)
+        val theme = sharedPreferences.getInt("theme", 0)
+        SetRootBackground.setbg(theme, this, binding.root)
 
         hVM.init(this)
         hVM.readTextFile()

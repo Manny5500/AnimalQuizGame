@@ -7,4 +7,24 @@
     <color name="themeblue">#00ADB5</color>
     <color name="themewhite">#EEEEEE</color>
     <color name="themered">#DA4D08</color>
+
+
+    <color name="themepink">#ffc7c7</color>
+    <color name="themepinklite">#ffe2e2</color>
+    <color name="themepinkwhite">#f6f6f6</color>
+    <color name="themepinkvio">#8785A2</color>
+
+
+    <color name="themegreenbg">#edf1d6</color>
+    <color name="themegreenlite">#9dc08b</color>
+    <color name="themegreenhigh">#609966</color>
+    <color name="themegreentxt">#40513b</color>
+
+    <color name="themecontrolbg">#f9f7f7</color>
+    <color name="themecontrollite">#dbe2ef</color>
+    <color name="themecontrolhigh">#3f72af</color>
+    <color name="themecontroltext">#112d4e</color>
+
+
+
 </resources>

@@ -1,6 +1,7 @@
 package com.example.animalquizgame
 
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,23 +14,29 @@ import com.example.animalquizgame.utlis.uiUtils.anim.Alpha
 import com.example.animalquizgame.utlis.uiUtils.anim.MoveUpward
 import com.example.animalquizgame.utlis.uiUtils.anim.SpinAnimation
 import com.example.animalquizgame.utlis.uiUtils.anim.TextAnimation
+import com.example.animalquizgame.utlis.uiUtils.general.SetRootBackground
 import com.example.animalquizgame.utlis.uiUtils.textViews.SpannableText
 import com.example.animalquizgame.viewmodels.MainMenuViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainMenu : AppCompatActivity() {
+class MainMenu : BaseActivity() {
     private lateinit var mVM:MainMenuViewModel
     private lateinit var binding:ActivityMainMenuBinding
-    private var  themeblue:Int = 0
+    private var  spanColor:Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        themeblue = ContextCompat.getColor(this, R.color.themeblue)
+        val sharedPreferences = getSharedPreferences("SETTINGS", Context.MODE_PRIVATE)
+        val theme = sharedPreferences.getInt("theme", 0)
+
+        spanColor = SetRootBackground.setbgSpan(theme, this, binding.root)
+
 
         mVM = ViewModelProvider(this)[MainMenuViewModel::class.java]
         binding.viewModel = mVM
@@ -53,7 +60,7 @@ class MainMenu : AppCompatActivity() {
 
             withContext(Dispatchers.Main){
                 SpannableText.colorize(binding.tVTitle,0,
-                    3 ,themeblue)
+                    3 ,spanColor)
                 Alpha.animate(binding.tVTitle)
                 MoveUpward.animate(binding.tVTitle)
             }
@@ -81,7 +88,7 @@ class MainMenu : AppCompatActivity() {
             navigateTo(HighScore::class.java)
         }
         binding.imgViewSetting.setOnClickListener{
-            SpinAnimation.animate(binding.imgViewSetting)
+            navigateTo(Settings::class.java)
         }
     }
     private fun navigateTo(cls:Class<*>) {

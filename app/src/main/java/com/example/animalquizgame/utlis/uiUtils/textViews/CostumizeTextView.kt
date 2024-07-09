@@ -12,7 +12,6 @@ class CostumizeTextView {
             tV.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
             tV.setPadding(padding, padding, padding, padding)
             tV.typeface = typeface
-            tV.setTextColor(Color.parseColor("#EEEEEE"))
 
         }
     }

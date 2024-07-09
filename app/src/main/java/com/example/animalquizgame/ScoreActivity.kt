@@ -1,18 +1,21 @@
 package com.example.animalquizgame
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.animalquizgame.databinding.ActivityScoreBinding
+import com.example.animalquizgame.utlis.uiUtils.general.SetRootBackground
 import com.example.animalquizgame.viewmodels.HighScoreViewModel
 import com.example.animalquizgame.viewmodels.ScoreViewModel
 
-class ScoreActivity : AppCompatActivity() {
+class ScoreActivity : BaseActivity() {
     private lateinit var sVM:ScoreViewModel
     private lateinit var binding:ActivityScoreBinding
     private lateinit var keyAnswers:Array<String>
@@ -28,6 +31,10 @@ class ScoreActivity : AppCompatActivity() {
         sVM = ViewModelProvider(this)[ScoreViewModel::class.java]
         binding.viewModel = sVM
         binding.lifecycleOwner = this
+
+        val sharedPreferences = getSharedPreferences("SETTINGS", Context.MODE_PRIVATE)
+        val theme = sharedPreferences.getInt("theme", 0)
+        SetRootBackground.setbg(theme, this, binding.root)
 
         binding.textViewBestScore.visibility = View.GONE
 

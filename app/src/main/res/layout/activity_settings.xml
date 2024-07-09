@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.animalquizgame.viewmodels.SettingsViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/themeblack"
+        tools:context=".Settings">
+
+        <com.example.animalquizgame.utlis.uiUtils.textViews.TitleTextView
+            android:fontFamily="@font/poppins"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="@color/themeblue"
+            android:gravity="center"
+            android:text="Settings"
+            android:id="@+id/tVSettings">
+        </com.example.animalquizgame.utlis.uiUtils.textViews.TitleTextView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id = "@+id/layoutTime"
+            android:layout_width="match_parent"
+            android:layout_marginTop="25dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tVSettings">
+
+            <TextView
+                android:id = "@+id/textTime"
+                android:textColor="@color/themewhite"
+                android:textSize="22sp"
+                android:text = "Time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/layoutTimeControls"
+                android:layout_marginStart="20dp">
+            </TextView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id = "@+id/layoutTimeControls"
+                android:layout_width="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/textTime"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:clickable="true"
+                    android:id="@+id/btnLtcDown"
+                    android:background="@drawable/button_border"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/minus_sign"
+                    app:tint="@color/themewhite"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/textLtc"
+                    android:onClick="@{() -> viewModel.decreaseTimeCount()}"
+                    />
+                <TextView
+                    android:id = "@+id/textLtc"
+                    android:textColor="@color/themewhite"
+                    android:textSize="22sp"
+                    android:text = ""
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@id/btnLtcUp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btnLtcDown">
+                </TextView>
+
+                <ImageView
+                    android:id="@+id/btnLtcUp"
+                    android:background="@drawable/button_border"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/plus"
+                    app:tint="@color/themewhite"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/textLtc"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:onClick="@{() -> viewModel.increaseTimeCount()}"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id = "@+id/layoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_marginTop="25dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutTime">
+
+
+            <TextView
+                android:id = "@+id/textQuestion"
+                android:textColor="@color/themewhite"
+                android:textSize="22sp"
+                android:text = "Question"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/layoutQuestionControls"
+                android:layout_marginStart="20dp">
+            </TextView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id = "@+id/layoutQuestionControls"
+                android:layout_width="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/textQuestion"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:id="@+id/btnLqcDown"
+                    android:background="@drawable/button_border"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/minus_sign"
+                    app:tint="@color/themewhite"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/textLqc"
+                    android:onClick="@{() -> viewModel.decreaseQuizCount()}"
+                    />
+                <TextView
+                    android:id = "@+id/textLqc"
+                    android:textColor="@color/themewhite"
+                    android:textSize="22sp"
+                    android:text = "@{viewModel._quizCountText}"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@id/btnLqcUp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btnLqcDown">
+                </TextView>
+
+                <ImageView
+                    android:id="@+id/btnLqcUp"
+                    android:background="@drawable/button_border"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/plus"
+                    app:tint="@color/themewhite"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/textLqc"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:onClick="@{() -> viewModel.increaseQuizCount()}"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id = "@+id/layoutTheme"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutQuestion">
+
+
+
+            <TextView
+                android:id = "@+id/textTheme"
+                android:textColor="@color/themewhite"
+                android:textSize="22sp"
+                android:text = "Theme"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/layoutThemeControls"
+                android:layout_marginStart="20dp">
+            </TextView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id = "@+id/layoutThemeControls"
+                android:layout_width="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/textTheme"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:id="@+id/btnLthcUp"
+                    android:background="@drawable/button_border"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/back"
+                    app:tint="@color/themewhite"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/textLthc"
+                    android:onClick="@{() -> viewModel.backTheme()}"
+                    />
+                <TextView
+                    android:id = "@+id/textLthc"
+                    android:textColor="@color/themewhite"
+                    android:textSize="19sp"
+                    android:text = "@{viewModel._currentText}"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@id/btnLthcDown"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btnLthcUp">
+                </TextView>
+
+                <ImageView
+                    android:id="@+id/btnLthcDown"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/button_border"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:src="@drawable/next"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/textLthc"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0"
+                    app:tint="@color/themewhite"
+                    android:onClick="@{() -> viewModel.nextTheme()}"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSaveSettings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="70dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginBottom="20dp"
+            android:text="Save Settings"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btnResetSettings"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/themewhite"
+            app:strokeColor="@color/themeblue"
+            android:backgroundTint="@color/themeblack"
+            app:strokeWidth="2dp"
+            />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnResetSettings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="90dp"
+            android:layout_marginStart="90dp"
+            android:layout_marginBottom="100dp"
+            android:text="Reset Settings"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/themewhite"
+            app:strokeColor="@color/themeblue"
+            android:backgroundTint="@color/themeblack"
+            app:strokeWidth="2dp"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
