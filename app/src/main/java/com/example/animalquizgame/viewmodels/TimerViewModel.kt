@@ -15,8 +15,8 @@ class TimerViewModel: ViewModel() {
 
     private val _isRush = MutableLiveData<Boolean>()
 
-    fun init(){
-        startTimer(10000, 1000)
+    fun init(time: Int){
+        startTimer(time*1000L, 1000)
         _isRush.value = false
     }
 

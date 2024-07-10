@@ -1,4 +1,4 @@
-package com.example.animalquizgame.utlis.uiUtils.button
+package com.example.animalquizgame.utlis.uiUtils.buttons
 
 import android.content.Context
 import androidx.core.content.ContextCompat

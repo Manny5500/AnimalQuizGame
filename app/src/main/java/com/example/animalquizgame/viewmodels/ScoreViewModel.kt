@@ -1,5 +1,6 @@
 package com.example.animalquizgame.viewmodels
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,12 +18,14 @@ class ScoreViewModel: ViewModel(){
     lateinit var quizChecker: QuizChecker
     var imageUrl:String = ""
     var hexColor:String = ""
+    @SuppressLint("StaticFieldLeak")
     lateinit var context: Context
     private val scoreList: MutableLiveData<ArrayList<Int>> = MutableLiveData()
     private val isHigher: MutableLiveData<Boolean> = MutableLiveData()
     fun init(remainingTime: Int, playerAnswers: Array<String>,
-             keyAnswers: Array<String>){
+             keyAnswers: Array<String>, context:Context){
 
+        this.context = context
         quizChecker = QuizChecker(keyAnswers, playerAnswers, remainingTime)
 
         this.status = quizChecker.status

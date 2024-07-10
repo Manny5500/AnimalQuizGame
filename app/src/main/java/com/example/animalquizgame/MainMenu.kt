@@ -3,10 +3,9 @@ package com.example.animalquizgame
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.animalquizgame.databinding.ActivityMainMenuBinding
@@ -18,7 +17,6 @@ import com.example.animalquizgame.utlis.uiUtils.general.SetRootBackground
 import com.example.animalquizgame.utlis.uiUtils.textViews.SpannableText
 import com.example.animalquizgame.viewmodels.MainMenuViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -26,25 +24,23 @@ class MainMenu : BaseActivity() {
     private lateinit var mVM:MainMenuViewModel
     private lateinit var binding:ActivityMainMenuBinding
     private var  spanColor:Int = 0
+    private lateinit var sharedPreferences: SharedPreferences
+    private var themeValue = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val sharedPreferences = getSharedPreferences("SETTINGS", Context.MODE_PRIVATE)
-        val theme = sharedPreferences.getInt("theme", 0)
-
-        spanColor = SetRootBackground.setbgSpan(theme, this, binding.root)
-
-
         mVM = ViewModelProvider(this)[MainMenuViewModel::class.java]
         binding.viewModel = mVM
         binding.lifecycleOwner = this
 
+
         binding.btnNewGame.visibility = View.INVISIBLE
         binding.btnHighScores.visibility = View.INVISIBLE
         binding.imgViewSetting.visibility = View.INVISIBLE
+
+        colorOtherUI()
 
         animationSequence()
         buttonsEvent()
@@ -95,5 +91,15 @@ class MainMenu : BaseActivity() {
         val intent = Intent(this, cls)
         startActivity(intent)
     }
-
+    override fun onResume() {
+        super.onResume()
+        colorOtherUI()
+        SpannableText.colorize(binding.tVTitle,0,
+            3 ,spanColor)
+    }
+    private fun colorOtherUI(){
+        sharedPreferences = getSharedPreferences("SETTINGS", Context.MODE_PRIVATE)
+        themeValue = sharedPreferences.getInt("theme", 0)
+        spanColor = SetRootBackground.setbgSpan(themeValue, this, binding.root)
+    }
 }

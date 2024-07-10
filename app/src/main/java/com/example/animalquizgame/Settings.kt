@@ -2,20 +2,25 @@ package com.example.animalquizgame
 
 
 import android.content.Context
-import android.content.Intent
-import android.graphics.Color
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.animalquizgame.databinding.ActivitySettingsBinding
 import com.example.animalquizgame.utlis.uiUtils.general.SetRootBackground
 import com.example.animalquizgame.utlis.uiUtils.general.SettingsUIChanger
 import com.example.animalquizgame.viewmodels.SettingsViewModel
 
+
 class Settings : BaseActivity(){
     private lateinit var stVM:SettingsViewModel
     private lateinit var binding:ActivitySettingsBinding
+    private lateinit var sharedPreferences:SharedPreferences
+    private val settingUIChanger = SettingsUIChanger
+    private var themeValue = 0
+    private var time = 10
+    private  var quiz = 10
+    private var themeNow = "Theme1"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,37 +31,24 @@ class Settings : BaseActivity(){
         binding.viewModel = stVM
         binding.lifecycleOwner = this
 
-
-        val sharedPreferences = getSharedPreferences("SETTINGS", Context.MODE_PRIVATE)
-        val theme = sharedPreferences.getInt("theme", 0)
-        SetRootBackground.setbg(theme, this, binding.root)
-
-
-        stVM.init(
-            sharedPreferences.getInt("time", 1),
-            sharedPreferences.getInt("quiz", 1),
-            theme
-        )
-
         binding.btnSaveSettings.visibility = View.GONE
 
+        setSharedPreferences()
+        SetRootBackground.setbg(themeValue, this, binding.root)
+        initializeSTVM()
+        setSettingsUIChanger()
+        observers()
+        btnsEvent()
+    }
+
+    private fun initializeSTVM(){
+        stVM.init(
+            time, quiz, themeValue
+        )
+    }
+    private fun observers(){
         stVM.getTimeCountText().observe(this){str->
             binding.textLtc.text = str
-        }
-
-        SettingsUIChanger.activity = this
-        SettingsUIChanger.context = this
-        SettingsUIChanger.binding = binding
-        stVM.getThemeText().observe(this){str->
-            SettingsUIChanger.setUI(str)
-        }
-
-        binding.btnSaveSettings.setOnClickListener{
-            val sharedPreferences = getSharedPreferences("SETTINGS", Context.MODE_PRIVATE)
-            sharedPreferences.edit().putInt("time", stVM.timeCount).apply()
-            sharedPreferences.edit().putInt("quiz", stVM.quizCount).apply()
-            sharedPreferences.edit().putInt("theme", stVM.current).apply()
-            restartApp()
         }
 
         stVM._isTheSame.observe(this){bool->
@@ -66,12 +58,47 @@ class Settings : BaseActivity(){
                 binding.btnSaveSettings.visibility = View.GONE
             }
         }
+        stVM.getThemeText().observe(this){str->
+            themeNow = str
+            SettingsUIChanger.setUI(str)
+        }
     }
 
-    private fun restartApp() {
-        val intent = Intent(applicationContext, MainMenu::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        startActivity(intent)
-        finish()
+    private fun btnsEvent(){
+        binding.btnSaveSettings.setOnClickListener{
+            sharedPreferences.edit().putInt("time", stVM.timeCount).apply()
+            sharedPreferences.edit().putInt("quiz", stVM.quizCount).apply()
+            sharedPreferences.edit().putInt("theme", stVM.current).apply()
+        }
+
+        binding.btnResetSettings.setOnClickListener {
+            sharedPreferences.edit().putInt("time", 10).apply()
+            sharedPreferences.edit().putInt("quiz", 10).apply()
+            sharedPreferences.edit().putInt("theme", 0).apply()
+            setSharedPreferences()
+            initializeSTVM()
+            SettingsUIChanger.setUI("Theme 1")
+        }
     }
+
+    private fun setSettingsUIChanger(){
+        settingUIChanger.activity = this
+        settingUIChanger.context = this
+        settingUIChanger.binding = binding
+    }
+    private fun setSharedPreferences(){
+        sharedPreferences = getSharedPreferences("SETTINGS", Context.MODE_PRIVATE)
+        themeValue = sharedPreferences.getInt("theme", 0)
+        time = sharedPreferences.getInt("time", 10)
+        quiz = sharedPreferences.getInt("quiz", 5)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //to ensure that the theme retain when sleep/unlock
+        SettingsUIChanger.setUI(themeNow)
+    }
+
+
+
 }

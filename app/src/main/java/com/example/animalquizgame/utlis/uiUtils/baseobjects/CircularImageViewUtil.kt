@@ -1,12 +1,10 @@
-package com.example.animalquizgame.utlis.uiUtils.button
+package com.example.animalquizgame.utlis.uiUtils.baseobjects
 
 import android.app.Activity
 import android.content.Context
-import android.content.res.ColorStateList
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import com.google.android.material.imageview.ShapeableImageView
 
 object CircularImageViewUtil {
     fun setDefaultImageViewColor(context: Context, colorResId: Int) {

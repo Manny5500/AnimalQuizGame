@@ -7,6 +7,7 @@ import com.example.animalquizgame.repositories.QuizItemRepositories
 
 class QuizItemViewModel : ViewModel() {
     private val mQuizItems: MutableLiveData<List<QuizItem>> = MutableLiveData()
+    private val origQuizItems: MutableLiveData<List<QuizItem>> = MutableLiveData()
     private lateinit var mRepo: QuizItemRepositories
     private val mIsUpdating: MutableLiveData<Boolean> = MutableLiveData()
     private val mIsFinished: MutableLiveData<Boolean> = MutableLiveData()
@@ -59,12 +60,23 @@ class QuizItemViewModel : ViewModel() {
             }
         }
     }
-    fun init() {
+    fun init(quizSize: Int) {
         if (mQuizItems.value != null) {
             return
         }
+
+
         mRepo = QuizItemRepositories.getInstance()
-        mQuizItems.value = mRepo.getQuizItems().value
+        origQuizItems.value = mRepo.getQuizItems().value
+
+        val originalList = origQuizItems.value
+        val reducedList = if(originalList != null && originalList.size>quizSize){
+            ArrayList(originalList.take(quizSize))
+        }else{
+            originalList
+        }
+
+        mQuizItems.value = reducedList
 
         size = mQuizItems.value?.size ?: 0
         currentAnswers = Array(size){""}

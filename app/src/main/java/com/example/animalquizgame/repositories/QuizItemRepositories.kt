@@ -55,6 +55,24 @@ class QuizItemRepositories {
             QuizItem("Carabao",
                 "https://firebasestorage.googleapis.com/v0/b/sample-6cfc8.appspot.com/o/images%2Fcarabao-5753656_1280.jpg?alt=media&token=12cb32e1-c5a4-42ac-991b-4d02b341bb82")
         )
+        dataSet.add(
+            QuizItem("Mouse",
+                "https://firebasestorage.googleapis.com/v0/b/sample-6cfc8.appspot.com/o/images%2Fmouse-8341314_1280.png?alt=media&token=0d695313-d2aa-425a-8a27-b4b1389eea3d")
+        )
+        dataSet.add(
+            QuizItem("Kangaroo",
+                "https://firebasestorage.googleapis.com/v0/b/sample-6cfc8.appspot.com/o/images%2Fkangaroo-4187955_1280.png?alt=media&token=b044820f-58c7-4172-acb7-64da5177d7f0")
+        )
+        dataSet.add(
+            QuizItem("Tiger",
+                "https://firebasestorage.googleapis.com/v0/b/sample-6cfc8.appspot.com/o/images%2Ftiger-1868911_1280.jpg?alt=media&token=653d14b8-1ac1-403b-9dfa-318926996e0b")
+        )
+
+        dataSet.add(
+            QuizItem("Giraffe",
+                "https://firebasestorage.googleapis.com/v0/b/sample-6cfc8.appspot.com/o/images%2Ftiger-1868911_1280.jpg?alt=media&token=653d14b8-1ac1-403b-9dfa-318926996e0b")
+        )
+
         dataSet.shuffle()
     }
 

@@ -26,7 +26,7 @@
             app:layout_constraintBottom_toTopOf="@id/midLayout"
             app:layout_constraintVertical_weight="2"
             >
-            <TextView
+            <com.example.animalquizgame.utlis.uiUtils.textViews.StatusTextView
                 android:id="@+id/textViewStats"
                 android:layout_width="0dp"
                 android:layout_height="0dp"

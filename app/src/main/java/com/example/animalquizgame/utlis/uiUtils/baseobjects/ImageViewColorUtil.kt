@@ -1,4 +1,4 @@
-package com.example.animalquizgame.utlis.uiUtils.button
+package com.example.animalquizgame.utlis.uiUtils.baseobjects
 
 import android.app.Activity
 import android.content.Context
@@ -7,7 +7,6 @@ import android.graphics.PorterDuff
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 
 object ImageViewColorUtil {

@@ -14,7 +14,8 @@ class TableSetter (
     val context: Context,
     val tableLayout:TableLayout,
     val scoreList:ArrayList<Int>,
-    val typeface: Typeface
+    val typeface: Typeface,
+    val textColor: Int
     ) {
     init{
     }
@@ -49,7 +50,7 @@ class TableSetter (
 
             val costumizeTextView = CostumizeTextView()
             costumizeTextView.setTextSizeAndPaddingForTextViews(
-                22f, 16, typeface, cellTextView
+                22f, 16, typeface, textColor, cellTextView
             )
             tableRow.addView(cellTextView)
         }
